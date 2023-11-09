@@ -2,4 +2,5 @@
 
 current_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-"$current_dir"/scripts/bettervim.sh
+tmux set -g @bettervim_theme "nord"
+"$current_dir"/src/bettervim.sh

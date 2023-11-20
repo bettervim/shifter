@@ -27,6 +27,20 @@ get_option() {
   fi
 }
 
+replace_keys() {
+    local original_string="$1"
+    shift
+
+    while (( "$#" )); do
+        local key="$1"
+        local value="$2"
+        original_string="${original_string//$key/$value}"
+        shift 2
+    done
+
+    echo "$original_string"
+}
+
 ## -- Evaluating theme tokens -----------------------------
 theme=$(get_option "@shifter_theme" "nord")
 source "$CURRENT_DIR/$theme.sh"
@@ -34,19 +48,11 @@ source "$CURRENT_DIR/$theme.sh"
 
 get_current_window_layout(){
   # -- Window Mode -----------------------------------------
-  # options: 'number' | 'name' | 'name-and-number'
-  local window_mode=$(get_option "@shifter_window_mode" "name")
+  local default_modules=" #number #name "
+  local window_modules=$(get_option "@shifter_window_modules" "$default_modules")
   # ---------------------------------------------------------
-
-  if [ "$window_mode" = "name" ]; then
-    layout="$WINDOW_NAME"
-  elif [ "$window_mode" = "number" ]; then
-    layout="$WINDOW_NUMBER"
-  else
-    layout="$WINDOW_NUMBER $WINDOW_NAME"
-  fi
-
-  echo " $layout "
+  local layout=$(replace_keys "$window_modules" "#number" "$WINDOW_NUMBER" "#name" "$WINDOW_NAME")
+  echo "$layout"
 }
 
 main() {

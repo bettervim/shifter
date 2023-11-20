@@ -11,7 +11,7 @@ A minimalist, versatile and opinionated theme for tmux.
 > Check the list of supported themes [here](/#supported-themes).
 
 ## Installing
-Using [tpm](https://github.com/tmux-plugins/tpm)https://github.com/tmux-plugins/tpm, add this to your `tmux.conf`
+Using [tpm](https://github.com/tmux-plugins/tpm), add this to your `tmux.conf`
 ```sh
 set -g @plugin 'bettervim/shifter'
 set -g @shifter_theme "nord"

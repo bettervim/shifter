@@ -21,6 +21,7 @@ set -g @shifter_theme "nord"
 - [x] `nord`
 - [x] `everforest`
 - [x] `poimandres`
+
 Work in progress, will be released soon ⚙️
 - [ ] `catppuccin`
 - [ ] `ayu`

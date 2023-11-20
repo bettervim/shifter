@@ -49,7 +49,7 @@ get_theme_name(){
 
 ## -- Evaluating theme tokens -----------------------------
 theme=$(get_theme_name)
-source "$CURRENT_DIR/$theme.sh"
+source "$CURRENT_DIR/themes/$theme.sh"
 # --------------------------------------------------------- 
 
 get_current_window_layout(){

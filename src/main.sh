@@ -61,6 +61,23 @@ get_current_window_layout(){
   echo " $layout "
 }
 
+get_aside_layout(){
+  local default_modules=$(get_option "@shifter_aside_modules" "#clock #session-name ")
+
+  local session_name_styles="#[fg=$theme_neutral_400 bg=$theme_primary bright]"
+  local session_name_layout="$SESSION_NAME"
+  local session_name_separator="#[fg=$theme_primary]$global_left_separator"
+  local session_name_module="$session_name_separator$session_name_styles $session_name_layout"
+
+  local clock_styles="#[fg=$theme_neutral_100,bg=$theme_neutral_200]"
+  local clock_layout="%H:%M"
+  local clock_module="$clock_styles $clock_layout"
+  
+  local layout=$(replace_modules_by_key "$default_modules" "#clock" "$clock_module" "#session-name" "$session_name_module")
+
+  echo "$layout"
+}
+
 main() {
   local global_left_separator=$(get_option "@shifter_left_separator" "")
   local global_status_position=$(get_option "@shifter_status_position" "bottom")
@@ -91,15 +108,8 @@ main() {
   # ---------------------------------------------------------------
 
   ## -- Right -----------------------------------------------------
-  local session_name_styles="#[fg=$theme_neutral_400 bg=$theme_primary bright]"
-  local session_name_layout="$SESSION_NAME "
-  local session_name_separator="#[fg=$theme_primary]$global_left_separator"
-  local session_name="$session_name_separator$session_name_styles $session_name_layout"
-  local clock_styles="#[fg=$theme_neutral_100,bg=$theme_neutral_200]"
-  local clock_layout="%H:%M "
-  local clock_module="$clock_styles $clock_layout"
-  local date_module=""
-  tmux set -g status-right "$clock_module$session_name"
+  local aside_layout=$(get_aside_layout)
+  tmux set -g status-right "$aside_layout"
   tmux set -g status-right-length 100
   # ---------------------------------------------------------------
 

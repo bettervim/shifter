@@ -28,14 +28,14 @@ get_option() {
 }
 
 ## -- Evaluating theme tokens -----------------------------
-theme=$(get_option "@bettervim_theme" "catppuccin")
+theme=$(get_option "@shifter_theme" "catppuccin")
 source "$CURRENT_DIR/$theme.sh"
 # --------------------------------------------------------- 
 
 get_current_window_layout(){
   # -- Window Mode -----------------------------------------
   # options: 'number' | 'name' | 'name-and-number'
-  local window_mode=$(get_option "@bettervim_window_mode" "name")
+  local window_mode=$(get_option "@shifter_window_mode" "name")
   # ---------------------------------------------------------
 
   if [ "$window_mode" = "name" ]; then
@@ -50,8 +50,8 @@ get_current_window_layout(){
 }
 
 main() {
-  local global_left_separator=$(get_option "@bettervim_left_separator" "")
-  local global_status_position=$(get_option "@bettervim_status_position" "bottom")
+  local global_left_separator=$(get_option "@shifter_left_separator" "")
+  local global_status_position=$(get_option "@shifter_status_position" "bottom")
 
   ## -- General -------------------------------------
   tmux set -g status-position "$global_status_position"

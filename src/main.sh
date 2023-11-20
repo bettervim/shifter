@@ -41,8 +41,14 @@ replace_modules_by_key() {
     echo "$original_string"
 }
 
+get_theme_name(){
+  local raw_name=$(get_option "@shifter_theme" "catppuccin")
+  local parsed_name="$(echo "$raw_name" | sed 's/:/-/')"
+  echo "$parsed_name"
+}
+
 ## -- Evaluating theme tokens -----------------------------
-theme=$(get_option "@shifter_theme" "nord")
+theme=$(get_theme_name)
 source "$CURRENT_DIR/$theme.sh"
 # --------------------------------------------------------- 
 

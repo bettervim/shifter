@@ -84,7 +84,7 @@ main() {
   local session_name_separator="#[fg=$theme_primary]$global_left_separator"
   local session_name="$session_name_separator$session_name_styles $session_name_layout"
   local clock_styles="#[fg=$theme_neutral_100,bg=$theme_neutral_200]"
-  local clock_layout="%H:%M"
+  local clock_layout="%H:%M "
   local clock_module="$clock_styles $clock_layout"
   local date_module=""
   tmux set -g status-right "$clock_module$session_name"

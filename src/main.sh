@@ -28,7 +28,7 @@ get_option() {
 }
 
 ## -- Evaluating theme tokens -----------------------------
-theme=$(get_option "@shifter_theme" "catppuccin")
+theme=$(get_option "@shifter_theme" "nord")
 source "$CURRENT_DIR/$theme.sh"
 # --------------------------------------------------------- 
 

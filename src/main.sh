@@ -27,7 +27,7 @@ get_option() {
   fi
 }
 
-replace_keys() {
+replace_modules_by_key() {
     local original_string="$1"
     shift
 
@@ -51,8 +51,8 @@ get_current_window_layout(){
   local default_modules=" #number #name "
   local window_modules=$(get_option "@shifter_window_modules" "$default_modules")
   # ---------------------------------------------------------
-  local layout=$(replace_keys "$window_modules" "#number" "$WINDOW_NUMBER" "#name" "$WINDOW_NAME")
-  echo "$layout"
+  local layout=$(replace_modules_by_key "$window_modules" "#number" "$WINDOW_NUMBER" "#name" "$WINDOW_NAME")
+  echo " $layout "
 }
 
 main() {
@@ -95,7 +95,6 @@ main() {
   local date_module=""
   tmux set -g status-right "$clock_module$session_name"
   tmux set -g status-right-length 100
-
   # ---------------------------------------------------------------
 
   ## -- Left ------------------------------------------------------

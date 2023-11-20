@@ -68,10 +68,11 @@ get_aside_layout(){
   local session_name_layout="$SESSION_NAME"
   local session_name_separator="#[fg=$theme_primary]$global_left_separator"
   local session_name_module="$session_name_separator$session_name_styles $session_name_layout"
-
+  
   local clock_styles="#[fg=$theme_neutral_100,bg=$theme_neutral_200]"
+  local clock_separator="#[fg=$theme_neutral_200]$global_left_separator"
   local clock_layout="%H:%M"
-  local clock_module="$clock_styles $clock_layout"
+  local clock_module="$clock_separator$clock_styles $clock_layout"
   
   local layout=$(replace_modules_by_key "$default_modules" "#clock" "$clock_module" "#session-name" "$session_name_module")
 

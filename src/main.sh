@@ -61,21 +61,57 @@ get_current_window_layout(){
   echo " $layout "
 }
 
-get_aside_layout(){
-  local default_modules=$(get_option "@shifter_aside_modules" "#clock #session-name ")
-
+get_session_name_module() {
   local session_name_styles="#[fg=$theme_neutral_400 bg=$theme_primary bright]"
-  local session_name_layout="$SESSION_NAME"
+  local session_name_layout="$SESSION_NAME "
   local session_name_separator="#[fg=$theme_primary]$global_left_separator"
   local session_name_module="$session_name_separator$session_name_styles $session_name_layout"
   
+  echo "$session_name_module"
+}
+
+get_clock_module() {
   local clock_styles="#[fg=$theme_neutral_100,bg=$theme_neutral_200]"
   local clock_separator="#[fg=$theme_neutral_200]$global_left_separator"
-  local clock_layout="%H:%M"
-  local clock_module="$clock_separator$clock_styles $clock_layout"
-  
-  local layout=$(replace_modules_by_key "$default_modules" "#clock" "$clock_module" "#session-name" "$session_name_module")
+  local clock_layout=" %H:%M "
+  local clock_module="$clock_separator$clock_styles$clock_layout"
 
+  echo "$clock_module"
+}
+
+get_hostname_module() {
+  local hostname_styles="#[fg=$theme_neutral_100,bg=$theme_neutral_200]"
+  local hostname_separator="#[fg=$theme_neutral_200]$global_left_separator"
+  local hostname_layout=" #H "
+  local hostname_module="$hostname_separator$hostname_styles$hostname_layout"
+  
+  echo "$hostname_module"
+}
+
+get_aside_layout(){
+  local default_modules=$(get_option "@shifter_aside_modules" "#clock#session-name")
+  local session_name_module=$(get_session_name_module)
+  local clock_module=$(get_clock_module)
+  local hostname_module=$(get_hostname_module)
+  
+local layout=$(replace_modules_by_key \
+  "$default_modules" \
+  "#clock" "$clock_module" \
+  "#session-name" "$session_name_module" \
+  "#hostname" "$hostname_module" \
+  )
+
+  echo "$layout"
+}
+
+get_status_left_layout(){
+  local default_modules=""
+  local session_name_module=$(get_session_name_module)
+  local layout=$(replace_modules_by_key \
+    "$default_modules" \
+    "#session-name" "$session_name_module" \
+  )
+  
   echo "$layout"
 }
 
@@ -115,8 +151,9 @@ main() {
   # ---------------------------------------------------------------
 
   ## -- Left ------------------------------------------------------
+  local status_left_layout=$(get_status_left_layout)
   tmux set -g status-left-length 100
-  tmux set -g status-left ''
+  tmux set -g status-left "$status_left_layout"
   # ---------------------------------------------------------------
 
 }

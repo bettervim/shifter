@@ -1,0 +1,5 @@
+## Set options for dev-only.
+# tmux set -g @shifter_theme "nord"
+
+# Run the shifter.tmux script
+source ./shifter.tmux
